@@ -184,40 +184,6 @@ function register(bot) {
 module.exports = { register, metadata };
 ```
 
-### Premium Command
-
-```javascript
-const { createCommandRegex } = require('../src/utils/commandHelper');
-const premiumStore = require('../src/utils/premiumStore');
-
-const metadata = {
-  name: 'Premium Feature',
-  category: 'premium',
-  description: 'Premium-only command',
-  commands: ['premiumfeature']
-};
-
-function register(bot) {
-  bot.onText(createCommandRegex('premiumfeature', '$'), async (msg) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id;
-    
-    // Check premium status
-    if (!premiumStore.isPremium(userId)) {
-      return bot.sendMessage(chatId,
-        '⭐ This is a premium feature!\n\n' +
-        'Use /premium to learn how to upgrade.',
-        { parse_mode: 'Markdown' }
-      );
-    }
-    
-    // Premium feature logic
-    await bot.sendMessage(chatId, '✨ Premium feature activated!');
-  });
-}
-
-module.exports = { register, metadata };
-```
 
 ### Command with API Call
 
@@ -343,25 +309,6 @@ Use the `/externalcommands` command (if implemented) to see:
 5. **Rate Limiting**: Implement rate limits to prevent abuse
 6. **Error Messages**: Don't expose sensitive information in errors
 7. **Permissions**: Check user permissions before executing admin commands
-
-## Example Repository Structure
-
-```
-my-bot-commands/
-├── README.md
-├── fun/
-│   ├── joke.js
-│   ├── meme.js
-│   └── game.js
-├── utility/
-│   ├── calculator.js
-│   ├── reminder.js
-│   └── convert.js
-├── admin/
-│   ├── broadcast.js
-│   └── stats.js
-└── package.json  # Optional: document required dependencies
-```
 
 ## Support
 
